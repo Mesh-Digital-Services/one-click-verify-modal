@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+
+        <div>
+            Status: <p id="res"></p>
+            Payload:
+            <pre id="payload"></pre>
+        </div>
+
+        <button class="btn btn-primary" id="startVerify">
+            Start Mesh Verify
+        </button>
+
+    </div>
+    <script src="/mesh.js"></script>
+    <script>
+        const resultEL = document.getElementById('res');
+        const payloadEL = document.getElementById('payload');
+
+
+        const onFinish = (result) => {
+            resultEL.innerHTML = 'Form Submitted successfully'
+            resultEL.classList.add('text-success');
+            resultEL.classList.remove('text-danger');
+            payloadEL.innerHTML = JSON.stringify(result, null, 4)
+
+            const { exitPage } = result;
+            switch (exitPage) {
+                case 'license_found_and_active':
+                    // code block
+                    break;
+                case 'license_inactive':
+                    // code block
+                    break;
+                case 'pending':
+                    // code block
+                    break;
+                case 'state_not_supported':
+                    // code block
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        const sessionId = null; // generated in BE side
+        document.getElementById('startVerify').addEventListener('click', () => {
+            window.MeshVerify.startVerify(
+                { onFinish, sessionId: sessionId }
+            );
+        });
+    </script>
+</body>
+
+</html>
