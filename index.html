@@ -56,9 +56,15 @@
         }
 
         const meshUserId = null; // generated in BE side
+        const onDestroyModal = () => {
+            console.log('modal have been destroyed')
+        }
+        const onManualCloseModal = () => {
+            console.log('modal have been closed by user')
+        }
         document.getElementById('startVerify').addEventListener('click', () => {
             window.MeshVerify.startVerify(
-                { onFinish, meshUserId: meshUserId }
+                { onFinish, meshUserId, onDestroyModal, onManualCloseModal }
             );
         });
     </script>
